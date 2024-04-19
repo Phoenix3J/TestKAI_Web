@@ -1,10 +1,34 @@
-/// <reference types="cypress" />
-
-/*describe('Login Suites Case', () =>{
-    it('Login with blank field',() => {
+describe('Login - Negative Case', () => {
+    it('Login with all blank field',() => {
+        cy.on('uncaught:exception', (err, runnable) => {
+            return false
+        })
       cy.visit('https://booking.kai.id/auth/login')
-      cy.wait(500)
-      cy.get('#btnLogin').click()
-      cy.get(':nth-child(2) > .col-md-6 > .help-block > .list-unstyled > li').should('Username wajib diisi')
+      cy.get('.btn').click()
+      cy.get('.col-md-6').find('li').eq(0).should('have.text','Username wajib diisi.')
+      cy.get('.col-md-6').find('li').eq(1).should('have.text','Please fill out this field.')         
     })
-})*/
+
+
+    it('Login with Username Blank',() => {
+        cy.on('uncaught:exception', (err, runnable) => {
+            return false
+        })
+      cy.visit('https://booking.kai.id/auth/login')
+      cy.get('#password').type('112233')
+      cy.get('.btn').click()
+      cy.get('.col-md-6').find('li').eq(1).should('have.text','Please fill out this field.')        
+    })
+
+    it('Login with Password Blank',() => {
+        cy.on('uncaught:exception', (err, runnable) => {
+            return false
+        })
+      cy.visit('https://booking.kai.id/auth/login')
+      cy.get('#username').type('Budi')
+      cy.get('.btn').click()
+      cy.get('.col-md-6').find('li').eq(0).should('have.text','Password wajib diisi.')
+      
+    })
+
+})
